@@ -21,3 +21,26 @@ services:
         restart: unless-stopped
         stdin_open: true
         tty: true
+        
+    mysql:
+        image: mysql:${MYSQL_VERSION}
+        container_name: mysql
+        hostname: mysql
+        restart: always
+        env_file:
+            - ".env"
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./data/db/mysql:/var/lib/mysql"
+            - "./config/mysql:/etc/mysql/conf.d"
+            - "./log:/var/log/mysql"
+        restart: unless-stopped
+        stdin_open: true
+        tty: true
+
