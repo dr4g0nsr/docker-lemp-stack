@@ -1,0 +1,36 @@
+version: '2'
+
+services:
+
+    gitea:
+        image: gitea/gitea:latest
+        hostname: gitea
+        container_name: gitea
+        environment:
+            - USER_UID=1000
+            - USER_GID=1000
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /etc/timezone:/etc/timezone:ro
+            - ./data/gitea:/data
+        ports:
+            - "3000:3000"
+            - "222:22"
+        restart: unless-stopped
+        stdin_open: true
+        tty: true
+        
+    jenkins:
+      container_name: jenkins
+      hostname: jenkins
+      image: dr4g0nsr/jenkins-php
+      restart: always
+      ports:
+        - "8080:8080"
+        - "50000:50000"
+      volumes:
+        - ./data/jenkins:/var/jenkins_home
+      restart: unless-stopped
+      stdin_open: true
+      tty: true
+
