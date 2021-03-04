@@ -7,17 +7,18 @@ services:
         hostname: web
         container_name: web
         volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /etc/timezone:/etc/timezone:ro
-            - "./etc/ssl:/etc/ssl"
+            - "/etc/localtime:/etc/localtime:ro"
+            - "/etc/timezone:/etc/timezone:ro"
+            - "./etc/ssl:/etc/ssl:ro"
             - "/var/www/html:/var/www/html"
             - "./log:/var/log/nginx"
             - "/etc/letsencrypt:/etc/letsencrypt:ro"
             - "./etc/nginx:/etc/nginx/sites-enabled"
+            - "./nginx.conf:/etc/nginx/nginx.conf:ro"
         ports:
             - "80:80"
             - "443:443"
-        stop_grace_period: 5s
+        stop_grace_period: 2s
         restart: unless-stopped
         stdin_open: true
         tty: true
@@ -40,6 +41,7 @@ services:
             - "./data/db/mysql:/var/lib/mysql"
             - "./config/mysql:/etc/mysql/conf.d"
             - "./log:/var/log/mysql"
+        stop_grace_period: 5s
         restart: unless-stopped
         stdin_open: true
         tty: true
