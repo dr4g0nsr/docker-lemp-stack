@@ -32,7 +32,6 @@ services:
       volumes:
         - ./data/jenkins:/var/jenkins_home
         - ./etc/ssl:/etc/ssl
-      entrypoint: java -Duser.home=/var/jenkins_home -Djenkins.model.Jenkins.slaveAgentPort=50000 -jar /usr/share/jenkins/jenkins.war --httpPort=-1 --httpsPort=8443 --httpsKeyStore=/etc/ssl/keystore --httpsKeyStorePassword=123456
       restart: unless-stopped
       stdin_open: true
       tty: true
